@@ -18,6 +18,7 @@ public class UserService {
         return userRepository.save(User.builder()
                 .name(dto.name())
                 .cpf(dto.cpf())
+                .email(dto.email())
                 .build()
         );
     }

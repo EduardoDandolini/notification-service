@@ -6,6 +6,7 @@ import com.ms.email_service.repository.EmailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,8 +19,8 @@ public class EmailService {
     private final EmailRepository emailRepository;
     private JavaMailSender javaMailSender;
 
-    public void sendAndCreateEmail(EmailDTO dto) {
-       emailRepository.save(
+    public void createEmail(EmailDTO dto) {
+        emailRepository.save(
                 Email.builder()
                         .id(UUID.randomUUID().toString())
                         .message(dto.message())
@@ -28,6 +29,11 @@ public class EmailService {
                         .build()
         );
 
+        sendEmail(dto);
+    }
+
+    @Async
+    private void sendEmail(EmailDTO dto) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("eduardodasilvadandolini@gmail.com");
         message.setTo(dto.userEmail());

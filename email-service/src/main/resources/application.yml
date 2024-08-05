@@ -7,10 +7,10 @@ server:
 
 data:
   cassandra:
-    keyspace-name: testKeySpace
-    contact-points: 127.0.0.1
-    port: 9142
-    local-datacenter: datacenter1
+    port: 9042
+    contact-points: mycassandra
+    keyspace-name: mykeyspace
+    entity-base-package: com.ms.email_service.entity
 
 mail:
   host: smtp.gmail.com
@@ -34,3 +34,5 @@ kafka:
     properties:
       spring.json.trusted.packages: '*'
       spring.json.type.mapping: notificationConfirmation:com.challenge.magalu.kafka.NotificationConfirmation
+    listener:
+      missing-topics-fatal: false
