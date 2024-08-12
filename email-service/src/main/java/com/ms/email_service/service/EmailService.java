@@ -17,7 +17,7 @@ import java.util.UUID;
 public class EmailService {
 
     private final EmailRepository emailRepository;
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     public void createEmail(EmailDTO dto) {
         emailRepository.save(
@@ -35,7 +35,7 @@ public class EmailService {
     @Async
     private void sendEmail(EmailDTO dto) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("eduardodasilvadandolini@gmail.com");
+        message.setFrom("");
         message.setTo(dto.userEmail());
         message.setText(String.format("Your notification has been successfully scheduled " + "Scheduled date: " + dto.dateAndTime()));
         javaMailSender.send(message);

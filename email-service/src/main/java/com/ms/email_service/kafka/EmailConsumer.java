@@ -15,8 +15,8 @@ public class EmailConsumer {
     private final EmailService emailService;
     private Logger log = Logger.getLogger(EmailConsumer.class.getName());
 
-    @KafkaListener(topics = "notification", groupId = "notificationConfirmation", containerFactory = "kafkaListenerContainerFactory")
-    public void consumerNotification(NotificationDTO dto){
+    @KafkaListener(topics = "notification")
+    public void consumerNotification(NotificationConfirmation dto){
         log.info("Message received");
         emailService.createEmail(new EmailDTO(dto.message(), dto.destination(), dto.userEmail(), dto.dateAndTime()));
     }
